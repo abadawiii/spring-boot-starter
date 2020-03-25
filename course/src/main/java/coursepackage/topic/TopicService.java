@@ -110,8 +110,21 @@ public class TopicService {
         for (int i=0; i<topics.size(); i++){
             if (topics.get(i).getId().equals(id)) {
                 topics.set(i, topic);
+                System.out.println("topic has been updated successfully");
                 return;
             }
         }
+    }
+
+
+    //Delete
+    public void deleteTopic(String id){
+        for (int i=0; i<topics.size(); i++){
+            if (topics.get(i).getId().equals(id)){
+                topics.remove(i);
+                return;
+            }
+        }
+
     }
 }

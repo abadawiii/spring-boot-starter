@@ -1,5 +1,7 @@
 package coursepackage.topic;
 
+
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -8,9 +10,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 @RestController
 public class TopicController {
+
+    org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(TopicController.class);
 
     @Autowired
     private TopicService topicService; // depency injection
@@ -52,7 +57,7 @@ public class TopicController {
 
 
     // NEW CHALLENGE -- POST request to add a topic to list of topics - given parameters
-    @RequestMapping(method = RequestMethod.POST, value = "/addTopic") // by default, mapping is a GET
+    @RequestMapping(method = RequestMethod.POST, value = "/topics") // by default, mapping is a GET
     public void addTopic(@RequestBody Topic topic){ // request payload will contain a JOSN representation
         // JSON representation will be automatically converted into an instance or object
         // And that object will be passed on to the method to post
@@ -77,10 +82,19 @@ public class TopicController {
          */
 
         topicService.addTopic(topic);
+        logger.warn("Topic has been added successfully!");
     }
-    @RequestMapping(method = RequestMethod.PUT, value = "/updateTopic/{id}")
+    @RequestMapping(method = RequestMethod.PUT, value = "/topics/{id}")
     public void updateTopic(@RequestBody Topic topic, @PathVariable String id){
         topicService.updateTopic(topic, id);
+        logger.warn("Topic has been updated successfully!");
+    }
+
+
+    @RequestMapping(method = RequestMethod.DELETE, value = "/topics/{id")
+    public void deleteTopic(@PathVariable String id){
+        topicService.deleteTopic(id);
+        logger.warn("Topic has been deleted successfully!");
     }
 
 
