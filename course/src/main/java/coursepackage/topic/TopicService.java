@@ -12,6 +12,7 @@ Probably to maintain 1:1 mapping between Controller : Service
 
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
@@ -22,11 +23,11 @@ import java.util.List;
 public class TopicService {
 
     // Building response (ideally fetch data from DB)
-    private List<Topic> topics = Arrays.asList(
+    private List<Topic> topics = new ArrayList<>(Arrays.asList(  // make a new copy of it so that it becoes immutable
             new Topic("spring", "Spring Framework", "Spring description", 3), // I am using the constructor
             new Topic("123", "Ahmed BAdawi", "Software Engineer II", 4),
             new Topic("java", "Python", "Golang", 2)
-    );
+    ));
 
     // - Format response as a hashmap -
     public HashMap<String, Topic> getIdHash(List<Topic> topics){
@@ -97,5 +98,10 @@ public class TopicService {
         }
         // not found -> return invalid None topic
         return new Topic("None", "None", "None", -1);
+    }
+
+    // POST meth
+    public void addTopic(Topic topic){
+        topics.add(topic);
     }
 }
